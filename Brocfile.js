@@ -3,7 +3,7 @@ var pickFiles = require('broccoli-static-compiler');
 
 var tree = pickFiles('src', {
     srcDir: '/',
-    destDir: 'lib'
+    destDir: '/'
 });
 
 module.exports = babel(tree, {});
