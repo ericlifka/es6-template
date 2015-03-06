@@ -25,6 +25,14 @@ var browserifyTree = fastBrowserify(babelTree, {
     }
 });
 
+var vendor = pickFiles('bower_components', {
+    srcDir: '.',
+    destDir: '.',
+    files: [
+        'lodash/lodash.js'
+    ]
+});
+
 var html = pickFiles('app', {
     srcDir: '/',
     destDir: '/',
@@ -33,4 +41,4 @@ var html = pickFiles('app', {
 
 var styles = compileLess(['app/styles'], 'app.less', 'app.css', {});
 
-module.exports = mergeTrees([html, browserifyTree, styles]);
+module.exports = mergeTrees([html, styles, browserifyTree, vendor]);
