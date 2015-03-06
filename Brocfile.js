@@ -4,33 +4,36 @@ var fastBrowserify = require('broccoli-fast-browserify');
 var mergeTrees = require('broccoli-merge-trees');
 var compileLess = require('broccoli-less-single');
 
-var libTree = pickFiles('app/src', {
+var srcTree = pickFiles('app/src', {
     files: ['**/*.js'],
     srcDir: '.',
-    destDir: '.'
+    destDir: './src'
 });
 
-var babelTree = babelTranspiler(libTree, {
+var vendorTree = pickFiles('bower_components', {
+    srcDir: '.',
+    destDir: './vendor',
+    files: [
+        'lodash/lodash.js'
+    ]
+});
+
+var babelTree = babelTranspiler(srcTree, {
     sourceMap: 'inline'
 });
 
-var browserifyTree = fastBrowserify(babelTree, {
+var browserifyTree = fastBrowserify(mergeTrees([babelTree, vendorTree]), {
     bundles: {
         'app.js': {
-            entryPoints: ['./app.js']
+            entryPoints: ['./src/app.js']
+        },
+        'vendor.js': {
+            entryPoints: ['./vendor/**/*.js']
         }
     },
     browserify: {
         debug: true
     }
-});
-
-var vendor = pickFiles('bower_components', {
-    srcDir: '.',
-    destDir: '.',
-    files: [
-        'lodash/lodash.js'
-    ]
 });
 
 var html = pickFiles('app', {
@@ -41,4 +44,4 @@ var html = pickFiles('app', {
 
 var styles = compileLess(['app/styles'], 'app.less', 'app.css', {});
 
-module.exports = mergeTrees([html, styles, browserifyTree, vendor]);
+module.exports = mergeTrees([html, styles, browserifyTree]);
