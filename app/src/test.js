@@ -1,1 +1,5 @@
-alert('hi');
+export default {
+    test() {
+        alert('hi');
+    }
+};

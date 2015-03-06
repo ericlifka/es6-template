@@ -1,12 +1,29 @@
-var babel = require('broccoli-babel-transpiler');
 var pickFiles = require('broccoli-static-compiler');
+var babelTranspiler = require('broccoli-babel-transpiler');
+var fastBrowserify = require('broccoli-fast-browserify');
 var mergeTrees = require('broccoli-merge-trees');
 var compileLess = require('broccoli-less-single');
 
-var js = babel(pickFiles('app', {
-    srcDir: '/src',
-    destDir: '/'
-}), {});
+var libTree = pickFiles('app/src', {
+    files: ['**/*.js'],
+    srcDir: '.',
+    destDir: '.'
+});
+
+var babelTree = babelTranspiler(libTree, {
+    sourceMap: 'inline'
+});
+
+var browserifyTree = fastBrowserify(babelTree, {
+    bundles: {
+        'app.js': {
+            entryPoints: ['./app.js']
+        }
+    },
+    browserify: {
+        debug: true
+    }
+});
 
 var html = pickFiles('app', {
     srcDir: '/',
@@ -14,6 +31,6 @@ var html = pickFiles('app', {
     files: ['index.html']
 });
 
-var css = compileLess(['app/styles'], 'app.less', 'app.css', {});
+var styles = compileLess(['app/styles'], 'app.less', 'app.css', {});
 
-module.exports = mergeTrees([js, html, css]);
+module.exports = mergeTrees([html, browserifyTree, styles]);
