@@ -1,7 +1,9 @@
 import Test from './test';
 
-export default {
-    something() {
+class App {
+    constructor() {
         Test.test();
     }
-};
+}
+
+export default new App();

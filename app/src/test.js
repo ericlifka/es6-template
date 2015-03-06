@@ -1,5 +1,5 @@
 export default {
     test() {
-        alert('hi');
+        console.log('test - hi');
     }
 };
