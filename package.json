@@ -2,6 +2,7 @@
   "devDependencies": {
     "broccoli": "^0.15.0",
     "broccoli-babel-transpiler": "^4.0.1",
+    "broccoli-merge-trees": "^0.2.1",
     "broccoli-static-compiler": "^0.2.1"
   }
 }
