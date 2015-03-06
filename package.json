@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "broccoli": "^0.15.0"
+    "broccoli": "^0.15.0",
+    "broccoli-babel-transpiler": "^4.0.1"
   }
 }
