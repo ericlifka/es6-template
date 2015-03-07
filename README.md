@@ -21,3 +21,7 @@ Powered by [broccoli](https://github.com/broccolijs/broccoli)
 $> npm install -g broccoli
 $> broccoli serve
 ```
+
+## License
+
+Licensed under the [MIT License](LICENSE)
