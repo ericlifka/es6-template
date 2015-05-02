@@ -4,22 +4,30 @@ Drop in template for ES6 projects with babel and less compilation
 
 ## Dependencies
 
-Dev dependencies installed via npm
+This project is node, npm, broccoli, and bower powered.
+
+Install node via `brew` or directly from [Node.js](https://nodejs.org/).
+
+Install bower and broccoli via npm:
 ```
-$> npm install
+npm install -g broccoli-cli
+npm install -g bower
 ```
 
-App dependencies installed via bower
+Client dependencies are managed via bower in [bower.json](bower.json)
+
+Dev server dependencies which are mainly broccoli plugins, are managed via npm in [package.json](package.json).
+
+## Getting Started
+
+Launch a development server:
 ```
-$> bower install
+broccoli serve
 ```
 
-## Develop
-
-Powered by [broccoli](https://github.com/broccolijs/broccoli)
+Create a distributable build in `dist`:
 ```
-$> npm install -g broccoli
-$> broccoli serve
+broccoli build dist
 ```
 
 ## License
